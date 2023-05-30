@@ -1,0 +1,24 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: check config
+    stat:
+      path: /etc/vector/vector.toml
+    register: stat_result
+  - name: Ensure that file vector.toml exist
+    assert:
+      that:
+        - stat_result.stat.exists
+      fail_msg: "config is not exist"
+      success_msg: "config vector.toml is exist"
+  # - name: debug result
+  #   debug:
+  #     var: stat_result
+
+
+
+    
